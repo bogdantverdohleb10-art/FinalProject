@@ -1,11 +1,24 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
-<div class="col-md-6 mt-3">
-    <h3>Реєстрація</h3>
-    <form method="post" class="card p-4">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary mt-2">Створити акаунт</button>
-    </form>
+<div class="container mt-5" style="max-width: 500px;">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">Створення акаунта</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                <div class="alert alert-danger p-2 mb-3">
+                    <strong>Помилка!</strong> Такий користувач вже існує. Придумайте інше ім'я.
+                </div>
+                {% endif %}
+
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-success w-100 mt-2">Зареєструватися</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

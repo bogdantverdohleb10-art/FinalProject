@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, SearchForm
 from .models import SearchHistory
+from django.db import IntegrityError
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'rent_model.pkl')
 model = joblib.load(MODEL_PATH)
@@ -14,9 +15,12 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')
+            try:
+                user = form.save()
+                login(request, user)
+                return redirect('home')
+            except IntegrityError:
+                form.add_error('username', 'Користувач із таким іменем вже існує.')
     else:
         form = UserRegisterForm()
     return render(request, 'registration/register.html', {'form': form})
