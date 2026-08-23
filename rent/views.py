@@ -25,16 +25,6 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'registration/register.html', {'form': form})
 
-
-import os
-import joblib
-import pandas as pd
-from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, SearchForm
-from .models import SearchHistory
-
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'rent_model.pkl')
 model = joblib.load(MODEL_PATH)
 
@@ -63,7 +53,6 @@ def home(request):
             sqft = form.cleaned_data.get('square_feet') or '1000'
             photo = form.cleaned_data.get('has_photo') or 'Yes'
             ptype = form.cleaned_data.get('price_type') or 'Monthly'
-
             lat = form.cleaned_data.get('latitude') or 38.0
             lon = form.cleaned_data.get('longitude') or -77.0
 

@@ -62,8 +62,6 @@ class SearchForm(forms.Form):
                                     widget=forms.Select(attrs={'class': 'form-select'}))
     has_photo = forms.ChoiceField(choices=PHOTO_CHOICES, required=False, label='Наявність фото',
                                   widget=forms.Select(attrs={'class': 'form-select'}))
-
-    # Додаємо координати
     latitude = forms.FloatField(required=False, label='Широта', widget=forms.NumberInput(
         attrs={'class': 'form-control', 'placeholder': 'Наприклад, 38.5'}))
     longitude = forms.FloatField(required=False, label='Довгота', widget=forms.NumberInput(
