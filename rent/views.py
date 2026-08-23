@@ -25,22 +25,6 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'registration/register.html', {'form': form})
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), 'rent_model.pkl')
-model = joblib.load(MODEL_PATH)
-
-
-def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')
-    else:
-        form = UserRegisterForm()
-    return render(request, 'registration/register.html', {'form': form})
-
-
 @login_required
 def home(request):
     prediction = None
