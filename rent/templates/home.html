@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Прогноз оренди</h4>
+            <a href="{% url 'history' %}" class="btn btn-light btn-sm text-primary fw-bold">Історія пошуку</a>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">{{ form.state.label_tag }} {{ form.state }}</div>
+                    <div class="col-md-6 mb-3">{{ form.price_type.label_tag }} {{ form.price_type }}</div>
+                    <div class="col-md-4 mb-3">{{ form.bedrooms.label_tag }} {{ form.bedrooms }}</div>
+                    <div class="col-md-4 mb-3">{{ form.bathrooms.label_tag }} {{ form.bathrooms }}</div>
+                    <div class="col-md-4 mb-3">{{ form.square_feet.label_tag }} {{ form.square_feet }}</div>
+                    <div class="col-md-4 mb-3">{{ form.latitude.label_tag }} {{ form.latitude }}</div>
+                    <div class="col-md-4 mb-3">{{ form.longitude.label_tag }} {{ form.longitude }}</div>
+                    <div class="col-md-4 mb-3">{{ form.has_photo.label_tag }} {{ form.has_photo }}</div>
+                </div>
+                <button type="submit" class="btn btn-success w-100 mt-3">Розрахувати ціну</button>
+            </form>
+
+            {% if prediction %}
+            <div class="alert alert-info mt-4 text-center fs-4">
+                <strong>Очікувана ціна:</strong> {{ prediction }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

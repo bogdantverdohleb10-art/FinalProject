@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="col-md-6 mt-3">
+    <h3>Вхід в систему</h3>
+    <form method="post" class="card p-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary mt-2">Увійти</button>
+    </form>
+</div>
+{% endblock %}
